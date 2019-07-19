@@ -9,10 +9,10 @@ const Home = () => (
         <h1 className="display-3">Manage Your Players</h1>
         <p className="lead pb-4">Take your gaming to the next level</p>
         <p>
-          <a href="/login" class="btn btn-primary btn-lg" role="button">
+          <a href="/login" className="btn btn-primary btn-lg" role="button">
             Login
           </a>
-          <a href="/register" class="btn btn-primary btn-lg" role="button">
+          <a href="/register" className="btn btn-primary btn-lg" role="button">
             Register
           </a>
         </p>
