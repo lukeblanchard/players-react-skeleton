@@ -1,9 +1,10 @@
+import axios from 'axios';
 import 'core-js/stable';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'regenerator-runtime/runtime';
 import { apiURL, apiRegister } from '../constants';
-import axios from 'axios';
 
-export const registerUser = async (payload) => {
+const registerUser = async (payload) => {
   const url = `${apiURL}${apiRegister}`;
   try {
     const response = await axios.post(url, payload, {
@@ -14,7 +15,8 @@ export const registerUser = async (payload) => {
     localStorage.setItem('token', response.data.token);
     return response.data.success;
   } catch (error) {
-    console.log(error.response.data);
     return error.response.data.success;
   }
 };
+
+export { registerUser as default };

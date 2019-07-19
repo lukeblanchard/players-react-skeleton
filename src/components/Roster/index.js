@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getRoster } from '../../API/Roster';
+import getRoster from '../../API/Roster';
 import { deletePlayer } from '../../API/Player';
 import PlayerCard from '../PlayerCard';
 
@@ -15,10 +15,10 @@ const Roster = () => {
       };
       fetchData();
     },
-    [count]
+    [count],
   );
 
-  const clickHandler = async id => {
+  const clickHandler = async (id) => {
     await deletePlayer(id);
     setCount(players.length);
   };

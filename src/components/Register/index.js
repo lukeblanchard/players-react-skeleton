@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable camelcase */
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { registerUser } from '../../API/Register';
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import registerUser from '../../API/Register';
+// eslint-disable-next-line no-unused-vars
 import styles from './styles.module.scss';
 import { checkInput } from '../../utils';
 
@@ -35,6 +37,9 @@ const Register = () => {
       case 'confirm_password':
         setConfirmPassword(value);
         break;
+      default:
+        setConfirmPassword(value);
+        break;
     }
   };
 
@@ -49,7 +54,7 @@ const Register = () => {
     };
     if (!checkInput(payload)) {
       setErrorMsg('Please fill in all input fields');
-    } else if (password != confirm_password) {
+    } else if (password !== confirm_password) {
       setErrorMsg('Passwords do not match!');
     } else {
       const res = await registerUser(payload);

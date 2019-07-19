@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 import React from 'react';
-import styles from './styles.module.scss';
+import PropTypes from 'prop-types';
 
 const PlayerCard = ({ player, clickHandler }) => {
   const {
@@ -24,6 +25,17 @@ const PlayerCard = ({ player, clickHandler }) => {
       </ul>
     </div>
   );
+};
+
+PlayerCard.propTypes = {
+  player: PropTypes.shape({
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    handedness: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  clickHandler: PropTypes.func.isRequired,
 };
 
 export default PlayerCard;

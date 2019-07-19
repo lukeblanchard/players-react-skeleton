@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styles from './styles.module.scss';
 
@@ -22,22 +22,22 @@ const Home = () => (
       <div className="row justify-content-md-center">
         <div className="col-md">
           <p>
-            <b>Our Mission</b> Amandil bragollach en' templa aa' menealle nauva
-            calen ar' malta vanya sulie. Tel'Domeduathea Engwarerea mae govannen
-            tolea' fuin. Ear'quessir Desiel Narie tincya en' russe tuulo'
+            <b>Our Mission</b> Amandil bragollach en templa aa menealle nauva
+            calen ar malta vanya sulie. TelDomeduathea Engwarerea mae govannen
+            tolea fuin. Earquessir Desiel Narie tincya en russe tuulo
             moriloomir. Creoso, mellonamin amin anta est kaim Melloneamin
             thangarim yassen templa. Nadorhuanrim quel marth manke naa nae lle
-            llie lye tuulo' Melamin.
+            llie lye tuulo Melamin.
           </p>
         </div>
         <div className="col-md">
           <p>
-            <b>Life is a Game</b> Amandil bragollach en' templa aa' menealle
-            nauva calen ar' malta vanya sulie. Tel'Domeduathea Engwarerea mae
-            govannen tolea' fuin. Ear'quessir Desiel Narie tincya en' russe
-            tuulo' moriloomir. Creoso, mellonamin amin anta est kaim Melloneamin
+            <b>Life is a Game</b> Amandil bragollach en templa aa menealle
+            nauva calen ar malta vanya sulie. TelDomeduathea Engwarerea mae
+            govannen tolea fuin. Earquessir Desiel Narie tincya en russe
+            tuulo moriloomir. Creoso, mellonamin amin anta est kaim Melloneamin
             thangarim yassen templa. Nadorhuanrim quel marth manke naa nae lle
-            llie lye tuulo' Melamin.
+            llie lye tuulo Melamin.
           </p>
         </div>
       </div>

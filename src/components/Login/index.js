@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { loginUser } from '../../API/Login';
+import loginUser from '../../API/Login';
 import { checkInput } from '../../utils';
 
 const Login = () => {
@@ -22,11 +23,11 @@ const Login = () => {
     }
   };
 
-  const submitHandler = async event => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const payload = {
       email,
-      password
+      password,
     };
     if (!checkInput(payload)) {
       setErrorMsg('Please fill in all fields');
@@ -42,7 +43,7 @@ const Login = () => {
         <div className="card">
           <form onSubmit={submitHandler}>
             <div className="form-group">
-              <label>Email address</label>
+              <label htmlFor="email">Email address</label>
               <input
                 type="email"
                 id="email"
@@ -51,7 +52,7 @@ const Login = () => {
                 placeholder="email"
                 onChange={handleInputChange}
               />
-              <label>Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"

@@ -1,9 +1,10 @@
+import axios from 'axios';
 import 'core-js/stable';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'regenerator-runtime/runtime';
 import { apiURL, apiRoster } from '../constants';
-import axios from 'axios';
 
-export const getRoster = async () => {
+const getRoster = async () => {
   const url = `${apiURL}${apiRoster}`;
   try {
     const response = await axios.get(url, {
@@ -17,3 +18,5 @@ export const getRoster = async () => {
     return error.response;
   }
 };
+
+export { getRoster as default };

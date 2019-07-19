@@ -1,7 +1,10 @@
-import { withRouter } from 'react-router-dom';
-import { createPlayer } from '../../API/Player';
-import axios from 'axios';
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter, Redirect } from 'react-router-dom';
+import { createPlayer } from '../../API/Player';
+// eslint-disable-next-line no-unused-vars
 import styles from './styles.module.scss';
 import { checkInput } from '../../utils';
 
@@ -34,7 +37,7 @@ const NewPlayer = ({ history }) => {
       case 'last_name':
         setLastName(value);
         break;
-      case 'rating':
+      default:
         setRating(value);
         break;
     }
@@ -129,6 +132,10 @@ const NewPlayer = ({ history }) => {
       </div>
     </div>
   );
+};
+
+NewPlayer.propTypes = {
+  history: PropTypes.string.isRequired,
 };
 
 export default withRouter(NewPlayer);
