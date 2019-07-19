@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from './styles.module.scss';
 
-const PlayerCard = ({ player }) => {
-  const { first_name, last_name, rating, handedness } = player;
+const PlayerCard = ({ player, clickHandler }) => {
+  const {
+    first_name, last_name, rating, handedness, id,
+  } = player;
   return (
     <div className="card">
       <div className="card-header">
@@ -11,6 +13,14 @@ const PlayerCard = ({ player }) => {
       <ul className="list-group list-group-flush">
         <li className="list-group-item">Rating: {rating}</li>
         <li className="list-group-item">Handedness: {handedness}</li>
+        <li className="list-group-item">
+          <button
+            onClick={() => clickHandler(id)}
+            className="delete btn btn-warning"
+          >
+            Delete
+          </button>
+        </li>
       </ul>
     </div>
   );

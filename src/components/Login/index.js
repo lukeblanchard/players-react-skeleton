@@ -1,26 +1,24 @@
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { loginUser } from '../../API/Login';
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import styles from './styles.module.scss';
+import { checkInput } from '../../utils';
 
 const Login = () => {
   const [success, setSuccess] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   let elem;
 
-  const handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    switch (name) {
-      case 'email':
-        setEmail(value.toLowerCase());
-        break;
-      case 'password':
-        setPassword(value);
-        break;
+  const handleInputChange = (event) => {
+    const { name } = event.target;
+    const { value } = event.target;
+    if (name === 'email') {
+      setEmail(value.toLowerCase());
+    }
+    if (name === 'password') {
+      setPassword(value);
     }
   };
 
@@ -30,8 +28,12 @@ const Login = () => {
       email,
       password
     };
-    const res = await loginUser(payload);
-    setSuccess(res);
+    if (!checkInput(payload)) {
+      setErrorMsg('Please fill in all fields');
+    } else {
+      const res = await loginUser(payload);
+      setSuccess(res);
+    }
   };
 
   switch (success) {
@@ -43,6 +45,7 @@ const Login = () => {
               <label>Email address</label>
               <input
                 type="email"
+                id="email"
                 className="form-control"
                 name="email"
                 placeholder="email"
@@ -51,6 +54,7 @@ const Login = () => {
               <label>Password</label>
               <input
                 type="password"
+                id="password"
                 className="form-control"
                 name="password"
                 placeholder="password"
@@ -59,9 +63,11 @@ const Login = () => {
               <div className="col-md text-center">
                 <input
                   className="btn btn-secondary"
+                  id="login"
                   type="submit"
                   value="Login"
                 />
+                <p className="errorMessage">{errorMsg}</p>
               </div>
             </div>
           </form>

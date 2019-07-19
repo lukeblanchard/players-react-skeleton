@@ -3,6 +3,7 @@ import { registerUser } from '../../API/Register';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
+import { checkInput } from '../../utils';
 
 const Register = () => {
   const [success, setSuccess] = useState(null);
@@ -11,12 +12,13 @@ const Register = () => {
   const [last_name, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   let elem;
 
-  const handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
+  const handleInputChange = (event) => {
+    const { name } = event.target;
+    const { value } = event.target;
     switch (name) {
       case 'email':
         setEmail(value);
@@ -36,17 +38,23 @@ const Register = () => {
     }
   };
 
-  const submitHandler = async event => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const payload = {
       first_name,
       last_name,
       email,
       password,
-      confirm_password
+      confirm_password,
     };
-    const res = await registerUser(payload);
-    setSuccess(res);
+    if (!checkInput(payload)) {
+      setErrorMsg('Please fill in all input fields');
+    } else if (password != confirm_password) {
+      setErrorMsg('Passwords do not match!');
+    } else {
+      const res = await registerUser(payload);
+      setSuccess(res);
+    }
   };
 
   switch (success) {
@@ -58,22 +66,25 @@ const Register = () => {
               <label>Email address</label>
               <input
                 type="email"
+                id="email"
                 className="form-control"
                 name="email"
                 placeholder="email"
                 onChange={handleInputChange}
               />
-              <label>First name</label>
+              <label>First Name</label>
               <input
                 type="text"
+                id="firstName"
                 className="form-control"
                 name="first_name"
                 placeholder="first name"
                 onChange={handleInputChange}
               />
-              <label>Last name</label>
+              <label>Last Name</label>
               <input
                 type="text"
+                id="lastName"
                 className="form-control"
                 name="last_name"
                 placeholder="last name"
@@ -82,14 +93,16 @@ const Register = () => {
               <label>Password</label>
               <input
                 type="password"
+                id="password"
                 className="form-control"
                 name="password"
                 placeholder="password"
                 onChange={handleInputChange}
               />
-              <label>Confirm password</label>
+              <label>Confirm Password</label>
               <input
                 type="password"
+                id="confirmPassword"
                 className="form-control"
                 name="confirm_password"
                 placeholder="confirm password"
@@ -97,10 +110,12 @@ const Register = () => {
               />
               <div className="col-md text-center">
                 <input
+                  id="register"
                   className="btn btn-secondary"
                   type="submit"
                   value="Register"
                 />
+                <p className="errorMessage">{errorMsg}</p>
               </div>
             </div>
           </form>

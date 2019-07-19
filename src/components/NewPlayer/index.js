@@ -3,6 +3,7 @@ import { createPlayer } from '../../API/Player';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
+import { checkInput } from '../../utils';
 
 const NewPlayer = ({ history }) => {
   const [success, setSuccess] = useState(null);
@@ -10,24 +11,22 @@ const NewPlayer = ({ history }) => {
   const [last_name, setLastName] = useState('');
   const [rating, setRating] = useState('');
   const [handedness, setHandedness] = useState('');
-
+  const [errorMsg, setErrorMsg] = useState('');
   let elem;
 
   useEffect(() => {
-    let successURL = '/roster';
+    const successURL = '/roster';
     if (success) {
       history.push(successURL);
     }
   });
 
-  const handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    console.log(name);
-    console.log(value);
+  const handleInputChange = (event) => {
+    const { name } = event.target;
+    const { value } = event.target;
     switch (name) {
       case 'handedness':
-        setHandedness(value);
+        setHandedness(value.toLowerCase());
         break;
       case 'first_name':
         setFirstName(value);
@@ -41,16 +40,21 @@ const NewPlayer = ({ history }) => {
     }
   };
 
-  const submitHandler = async event => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const payload = {
       first_name,
       last_name,
       rating,
-      handedness
+      handedness,
     };
-    const res = await createPlayer(payload);
-    setSuccess(res);
+    checkInput(payload);
+    if (!checkInput(payload)) {
+      setErrorMsg('Please fill in all input fields');
+    } else {
+      const res = await createPlayer(payload);
+      setSuccess(res);
+    }
   };
 
   switch (success) {
@@ -59,17 +63,19 @@ const NewPlayer = ({ history }) => {
         <div className="card">
           <form onSubmit={submitHandler}>
             <div className="form-group">
-              <label>First name</label>
+              <label>First Name</label>
               <input
                 type="text"
+                id="firstName"
                 className="form-control"
                 name="first_name"
                 placeholder="first name"
                 onChange={handleInputChange}
               />
-              <label>Last name</label>
+              <label>Last Name</label>
               <input
                 type="text"
+                id="lastName"
                 className="form-control"
                 name="last_name"
                 placeholder="last name"
@@ -78,28 +84,32 @@ const NewPlayer = ({ history }) => {
               <label>Handedness</label>
               <select
                 className="form-control form-control-sm"
+                id="handedness"
                 name="handedness"
                 selected="left"
                 onChange={handleInputChange}
               >
                 <option />
-                <option>left</option>
-                <option>right</option>
+                <option>Left</option>
+                <option>Right</option>
               </select>
               <label>Rating</label>
               <input
                 type="text"
                 className="form-control"
+                id="rating"
                 name="rating"
                 placeholder="rating"
                 onChange={handleInputChange}
               />
               <div className="col-md text-center">
                 <input
+                  id="create"
                   className="btn btn-secondary"
                   type="submit"
-                  value="Register"
+                  value="Create"
                 />
+                <p className="errorMessage">{errorMsg}</p>
               </div>
             </div>
           </form>
