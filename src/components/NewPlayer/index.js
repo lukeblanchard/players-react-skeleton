@@ -1,25 +1,33 @@
-import { Redirect } from 'react-router-dom';
-import { registerUser } from '../../API/Register';
+import { withRouter } from 'react-router-dom';
+import { createPlayer } from '../../API/Player';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
 
-const Register = () => {
+const NewPlayer = ({ history }) => {
   const [success, setSuccess] = useState(null);
-  const [email, setEmail] = useState('');
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm_password, setConfirmPassword] = useState('');
+  const [rating, setRating] = useState('');
+  const [handedness, setHandedness] = useState('');
 
   let elem;
+
+  useEffect(() => {
+    let successURL = '/roster';
+    if (success) {
+      history.push(successURL);
+    }
+  });
 
   const handleInputChange = event => {
     const name = event.target.name;
     const value = event.target.value;
+    console.log(name);
+    console.log(value);
     switch (name) {
-      case 'email':
-        setEmail(value);
+      case 'handedness':
+        setHandedness(value);
         break;
       case 'first_name':
         setFirstName(value);
@@ -27,11 +35,8 @@ const Register = () => {
       case 'last_name':
         setLastName(value);
         break;
-      case 'password':
-        setPassword(value);
-        break;
-      case 'confirm_password':
-        setConfirmPassword(value);
+      case 'rating':
+        setRating(value);
         break;
     }
   };
@@ -41,11 +46,10 @@ const Register = () => {
     const payload = {
       first_name,
       last_name,
-      email,
-      password,
-      confirm_password
+      rating,
+      handedness
     };
-    const res = await registerUser(payload);
+    const res = await createPlayer(payload);
     setSuccess(res);
   };
 
@@ -55,14 +59,6 @@ const Register = () => {
         <div className="card">
           <form onSubmit={submitHandler}>
             <div className="form-group">
-              <label>Email address</label>
-              <input
-                type="email"
-                className="form-control"
-                name="email"
-                placeholder="email"
-                onChange={handleInputChange}
-              />
               <label>First name</label>
               <input
                 type="text"
@@ -79,20 +75,23 @@ const Register = () => {
                 placeholder="last name"
                 onChange={handleInputChange}
               />
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                placeholder="password"
+              <label>Handedness</label>
+              <select
+                className="form-control form-control-sm"
+                name="handedness"
+                selected="left"
                 onChange={handleInputChange}
-              />
-              <label>Confirm password</label>
+              >
+                <option />
+                <option>left</option>
+                <option>right</option>
+              </select>
+              <label>Rating</label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
-                name="confirm_password"
-                placeholder="confirm password"
+                name="rating"
+                placeholder="rating"
                 onChange={handleInputChange}
               />
               <div className="col-md text-center">
@@ -122,4 +121,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default withRouter(NewPlayer);

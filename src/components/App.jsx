@@ -5,6 +5,7 @@ import Login from './Login';
 import React from 'react';
 import Register from './Register';
 import Roster from './Roster';
+import NewPlayer from './NewPlayer';
 
 const App = () => (
   <Router>
@@ -13,6 +14,7 @@ const App = () => (
       <Route exact path="/register" component={Register} />
       <Route exact path="/roster" component={Roster} />
       <Route exact path="/login" component={Login} />
+      <Route exact path="/player/new" component={NewPlayer} />
     </Switch>
   </Router>
 );

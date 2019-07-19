@@ -1,10 +1,10 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { apiURL, apiRegister } from '../constants';
+import { apiURL, apiLogin } from '../constants';
 import axios from 'axios';
 
-export const registerUser = async payload => {
-  const url = `${apiURL}${apiRegister}`;
+export const loginUser = async payload => {
+  const url = `${apiURL}${apiLogin}`;
   try {
     const response = await axios.post(url, payload, {
       headers: {
