@@ -1,9 +1,19 @@
-import axios from 'axios';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import { apiURL, apiRegister } from '../constants';
+import axios from 'axios';
 
-export const registerUser = payload => {
-  console.log('test');
+export const registerUser = async payload => {
   const url = `${apiURL}${apiRegister}`;
-  const response = axios.post(url, payload);
-  return response.data;
+  try {
+    const response = await axios.post(url, payload, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    localStorage.setItem('token', response.data.token);
+    return response.status;
+  } catch (err) {
+    return 409;
+  }
 };

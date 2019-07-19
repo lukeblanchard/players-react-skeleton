@@ -1,28 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { registerUser } from '../../API/Register';
 
 const Register = () => {
+  const [success, setSuccess] = useState(null);
+
+  use
+
   const submitHandler = async () => {
     const payload = {
-      first_name: 'Testing',
-      last_name: 'Tester',
-      email: '123@gmail.com',
-      password: 'myPass',
-      confirm_password: 'myPass'
+      first_name: 'Bilbo',
+      last_name: 'Baggins',
+      email: '10909@gmail.com',
+      password: 'myPrecious',
+      confirm_password: 'myPrecious'
     };
-    const apiURL = 'https://players-api.developer.alchemy.codes/api/user';
-    const response = await axios.post(url, payload);
-    //registerUser({});
-    console.log(response);
+    const res = await registerUser(payload);
+    await setSuccess(res);
+    console.log(success);
   };
 
   return (
     <div>
-        <h1>Hello</h1>
-        <p>Enter your name:</p>
-        <input type="text" />
-        <input type="button" onClick={submitHandler}/>
+      <p>Enter your name:</p>
+      <input type="text" />
+      <input type="button" onClick={submitHandler} />
     </div>
   );
 };
